@@ -1,4 +1,4 @@
-function killAllRepos(){
+function destroyReposList(){
     let childs = container.childNodes;
     childs = Array.from(childs);
     childs.forEach((div) => {
@@ -7,7 +7,7 @@ function killAllRepos(){
 }
 function addCard(data){
     const fragment = document.createDocumentFragment();
-    let value = fromLocalStorage(data.innerText);
+    let value = getLocalStorage(data.innerText);
     let {name, login, stargazers_count} = value;
     const card = document.createElement('div');
     card.classList.add('card', 'card-description');
@@ -53,11 +53,11 @@ function makePage(data){
         card.appendChild(cardBody);
         fragment.appendChild(card);
     });
-    killAllRepos();
+    destroyReposList();
     container.appendChild(fragment);
 }
 
-function toLocalStorage(data){
+function setLocalStorage(data){
     let obj = {};
     data.forEach(post => {
         let {name, owner:{login}, stargazers_count} = post;
@@ -70,7 +70,7 @@ function toLocalStorage(data){
     localStorage.setItem('obj', JSON.stringify(obj));
 }
 
-function fromLocalStorage(data){
+function getLocalStorage(data){
     let value = localStorage.getItem('obj');
     value = JSON.parse(value);
     const cardData = value[data];
@@ -80,14 +80,11 @@ function fromLocalStorage(data){
 async function handler(e){
     let result = null;
     try{
-      result = await getPage(e.target.value)
+    let result = await getData(e.target.value);
+    makePage(result);
     }catch(e){
       throw e;
     }
-}
-async function getPage(value){
-    let result = await getData(value);
-    makePage(result);
 }
 
 async function getData(value){
@@ -95,7 +92,7 @@ async function getData(value){
     let repos = await response.json();
     if(repos.items);
     repos.items.splice(5);
-    toLocalStorage(repos.items);
+    setLocalStorage(repos.items);
     return repos.items;
 };
 

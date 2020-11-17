@@ -1,7 +1,7 @@
 const searchInput = document.getElementById('myInput');
 const container = document.querySelector('.container');
 const cardsContainer = document.querySelector('.container-cards');
-const exit = document.querySelector('.card-exit');
+// const exit = document.querySelector('.card-exit');
 
 searchInput.addEventListener('input', 
     debounce(handler, 800)
@@ -12,7 +12,7 @@ container.addEventListener('click', (e) => {
     if (!target) return;
     if (!container.contains(target)) return;
     addCard(target);
-    killAllRepos();
+    destroyReposList();
     searchInput.value = '';
 });
 
