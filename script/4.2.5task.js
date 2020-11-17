@@ -1,7 +1,6 @@
 const searchInput = document.getElementById('myInput');
 const container = document.querySelector('.container');
 const cardsContainer = document.querySelector('.container-cards');
-// const exit = document.querySelector('.card-exit');
 
 searchInput.addEventListener('input', 
     debounce(handler, 800)

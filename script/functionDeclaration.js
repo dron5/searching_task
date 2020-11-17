@@ -80,31 +80,18 @@ function getLocalStorage(data){
 async function handler(e){
     let result = null;
     try{
-    let result = await getData(e.target.value);
+    let result = await findReposOnGit(e.target.value);
     makePage(result);
     }catch(e){
       throw e;
     }
 }
 
-async function getData(value){
+async function findReposOnGit(value){
     let response = await fetch(`https://api.github.com/search/repositories?q=${value}`);
     let repos = await response.json();
-    if(repos.items);
+    if(!repos.items) return;
     repos.items.splice(5);
     setLocalStorage(repos.items);
     return repos.items;
-};
-
-function debounce(cb, debounceTime){
-    let timeout;
-    return function() {
-        const self = this;
-        const args = arguments;
-        const functionCall = () => {
-            return cb.apply(self, args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(functionCall, debounceTime);
-    }
 };
