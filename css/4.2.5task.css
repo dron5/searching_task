@@ -72,9 +72,10 @@ input {
     color: red;
     transform: translateY(-8px) rotate(45deg);
 ￼}
-/* .card-close::before:hover {
-    cursor: pointer;
-} */
+
+.card-close:hover:before {
+    color: Purple;
+}
 
 .card-title {
     margin-left: 20px;
