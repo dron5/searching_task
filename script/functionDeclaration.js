@@ -9,6 +9,7 @@ function addCard(data){
     const fragment = document.createDocumentFragment();
     let value = getLocalStorage(data.innerText);
     let {name, login, stargazers_count} = value;
+    
     const card = document.createElement('div');
     card.classList.add('card', 'card-description');
     const cardBody = document.createElement('div');
@@ -30,7 +31,7 @@ function addCard(data){
     cardBody.appendChild(stars);
      
     const cross = document.createElement('div');
-    cross.classList.add('card-exit');
+    cross.classList.add('card-close');
     cardBody.appendChild(cross);
      
     card.appendChild(cardBody);
@@ -77,13 +78,12 @@ function getLocalStorage(data){
     return cardData;
 }
 
-async function handler(e){
-    let result = null;
+async function inputValueTransferHandler(e){
     try{
-    let result = await findReposOnGit(e.target.value);
-    makePage(result);
+        let result = await findReposOnGit(e.target.value);
+        makePage(result);
     }catch(e){
-      throw e;
+        throw e;
     }
 }
 
@@ -91,7 +91,6 @@ async function findReposOnGit(value){
     let response = await fetch(`https://api.github.com/search/repositories?q=${value}`);
     let repos = await response.json();
     if(!repos.items) return;
-    repos.items.splice(5);
-    setLocalStorage(repos.items);
-    return repos.items;
+    setLocalStorage(repos.items.slice(0,5));
+    return repos.items.slice(0,5);
 };

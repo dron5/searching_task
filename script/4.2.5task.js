@@ -3,7 +3,7 @@ const container = document.querySelector('.container');
 const cardsContainer = document.querySelector('.container-cards');
 
 searchInput.addEventListener('input', 
-    debounce(handler, 800)
+    debounce(inputValueTransferHandler, 800)
 );
 
 container.addEventListener('click', (e) => {
@@ -16,7 +16,7 @@ container.addEventListener('click', (e) => {
 });
 
 cardsContainer.addEventListener('click', (e) => {
-    const target = e.target.closest('.card-exit');
+    const target = e.target.closest('.card-close');
     if (!target) return;
     if (!cardsContainer.contains(target)) return;
     target.closest('.card').remove();

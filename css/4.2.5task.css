@@ -42,6 +42,9 @@ input {
     min-height: 60px;
     margin: 5px auto;
 }
+.card-preview:hover {
+    cursor: pointer;
+}
 .card-description {
     display: flex;
     flex-direction: column;
@@ -53,7 +56,7 @@ input {
 .card-body {
     position: relative;
 }
-.card-exit {
+.card-close {
     position: absolute;
     width: 20px;
     height: 20px;
@@ -63,12 +66,15 @@ input {
     top: 10px;
     z-index: 3;
 }
-.card-exit::before {
+.card-close::before {
     position: absolute;
     content: "+";
     color: red;
     transform: translateY(-8px) rotate(45deg);
 ￼}
+/* .card-close::before:hover {
+    cursor: pointer;
+} */
 
 .card-title {
     margin-left: 20px;
