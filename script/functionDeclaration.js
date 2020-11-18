@@ -74,6 +74,10 @@ function getLocalStorage(data){
 
 async function inputValueTransferHandler(e){
     try{
+        if (!e.target.value) {
+           destroyReposList();
+           return; 
+        }
         let result = await findReposOnGit(e.target.value);
         makePage(result);
     }catch(e){
