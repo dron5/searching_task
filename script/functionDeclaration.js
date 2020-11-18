@@ -5,35 +5,33 @@ function destroyReposList(){
         div.remove();
     });
 }
+
+const makeElement = function (tagName, className, text) {
+  let element = document.createElement(tagName);
+  element.classList.add(...className);
+  if (text) {
+    element.textContent = text;
+  }
+  return element;
+};
+
 function addCard(data){
     const fragment = document.createDocumentFragment();
     let value = getLocalStorage(data.innerText);
     let {name, login, stargazers_count} = value;
     
-    const card = document.createElement('div');
-    card.classList.add('card', 'card-description');
-    const cardBody = document.createElement('div');
-    cardBody.classList.add('card-body');
-     
-    const title = document.createElement('h3');
-    title.classList.add('card-title');
-    title.textContent = name;
+    const card = makeElement('div', ['card', 'card-description']);
+    const cardBody = makeElement('div', ['card-body']);
+    const title = makeElement('h3', ['card-title'], name);
     cardBody.appendChild(title);
-     
-    const owner = document.createElement('div');
-    owner.classList.add('card-title', 'card-therest');
-    owner.textContent = 'owner: ' + login;
+    const owner = makeElement('div', ['card-title', 'card-therest'],
+                                'owner: ' + login);
     cardBody.appendChild(owner);
-    
-    const stars = document.createElement('div');
-    stars.classList.add('card-title', 'card-therest');
-    stars.textContent = 'stars: ' + stargazers_count;
+    const stars = makeElement('div', ['card-title', 'card-therest'],
+                                'stars: ' + stargazers_count);
     cardBody.appendChild(stars);
-     
-    const cross = document.createElement('div');
-    cross.classList.add('card-close');
+    const cross = makeElement('div', ['card-close']);
     cardBody.appendChild(cross);
-     
     card.appendChild(cardBody);
     fragment.appendChild(card);
     cardsContainer.appendChild(fragment);
@@ -43,13 +41,9 @@ function makePage(data){
     const fragment = document.createDocumentFragment();
     data.forEach(post => {
         let {name} = post;
-        const card = document.createElement("div");
-        card.classList.add('card','card-preview');
-        const cardBody = document.createElement('div');
-        cardBody.classList.add('card-body');
-        const title = document.createElement('h3');
-        title.classList.add('card-title');
-        title.textContent = name;
+        const card = makeElement('div', ['card','card-preview']);
+        const cardBody = makeElement('div', ['card-body']);
+        const title = makeElement('h3', ['card-title'], name);
         cardBody.appendChild(title);
         card.appendChild(cardBody);
         fragment.appendChild(card);

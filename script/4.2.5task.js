@@ -2,6 +2,10 @@ const searchInput = document.getElementById('myInput');
 const container = document.querySelector('.container');
 const cardsContainer = document.querySelector('.container-cards');
 
+searchInput.addEventListener('keydown', e => {
+    if (e.keyCode === 13) e.preventDefault();
+});
+
 searchInput.addEventListener('input', 
     debounce(inputValueTransferHandler, 800)
 );
