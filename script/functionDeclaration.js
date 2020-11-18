@@ -37,7 +37,7 @@ function addCard(data){
     cardsContainer.appendChild(fragment);
 }
 
-function makePage(data){
+function showReposList(data){
     const fragment = document.createDocumentFragment();
     data.forEach(post => {
         let {name} = post;
@@ -79,7 +79,7 @@ async function inputValueTransferHandler(e){
            return; 
         }
         let result = await findReposOnGit(e.target.value);
-        makePage(result);
+        showReposList(result);
     }catch(e){
         throw e;
     }
